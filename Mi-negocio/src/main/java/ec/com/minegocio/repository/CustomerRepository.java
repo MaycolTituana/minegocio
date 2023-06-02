@@ -15,5 +15,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface CustomerRepository extends JpaRepository<Customer,Long>{
     List<Customer> findByNamesContainingIgnoreCase(String name);
-    Optional<Customer> findByIdentificationNumber(String identificationNumber);
+    Customer findByIdentificationNumber(String identificationNumber);
 }

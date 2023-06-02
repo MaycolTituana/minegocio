@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -60,8 +59,6 @@ public class Customer {
         this.addresses = addresses;
     }
     
-
-
     public Long getId() {
         return id;
     }
@@ -117,8 +114,5 @@ public class Customer {
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
-
- 
-    
     
 }

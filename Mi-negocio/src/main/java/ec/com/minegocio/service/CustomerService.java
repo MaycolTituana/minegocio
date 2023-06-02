@@ -8,7 +8,6 @@ import ec.com.minegocio.exception.ControlException;
 import ec.com.minegocio.model.Address;
 import ec.com.minegocio.model.Customer;
 import ec.com.minegocio.presenters.CustomerPresenters;
-import ec.com.minegocio.repository.AddressRepository;
 import ec.com.minegocio.repository.CustomerRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +29,26 @@ public class CustomerService {
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
-    
-    public Customer addCustomer(Customer customer){
-        
-        return customerRepository.save(customer);
+    //ADD CUSTOMER
+    public Customer addCustomer(Customer customer) {
+        List<Address> addresses = customer.getAddresses();
+        Customer currentCustomer = customerRepository.findByIdentificationNumber(customer.getIdentificationNumber());
+        if (currentCustomer != null) {
+            throw new ControlException("Customer with the same identification number already exists");
+        } else {
+            for (Address currentAddress : addresses) {
+                currentAddress.setMainAddress(false);
+            }
+            customer.getAddresses().get(0).setMainAddress(true);
+            return customerRepository.save(customer);
+        }
     }
     
     //SEARCH BY NAME
-    
     public List<CustomerPresenters> getCustomerByNames(Customer customer) {
+        
         List<Customer> customers = customerRepository.findByNamesContainingIgnoreCase(customer.getNames());
-        List<CustomerPresenters> presenters = new ArrayList();
+        List<CustomerPresenters> presenters = new ArrayList(); 
         
         for (Customer currentCustomer : customers) {
             List<Address> addresses = currentCustomer.getAddresses();
@@ -57,24 +65,24 @@ public class CustomerService {
                     presenter.setAddress(currentAdresses.getAddress());
                     presenters.add(presenter);
                 }
-            }
-           
+            }     
         }
+        
         return presenters;
     }
     
     //EDIT CUSTOMER DATA
-    
     public ResponseEntity<Customer> editCustomer(Customer customer) {
         List<Customer> customers = customerRepository.findAll();
         
         for (Customer currentCustomer : customers) {
-            if (!currentCustomer.getId().equals(customer.getId()) && currentCustomer.getIdentificationNumber().equals(customer.getIdentificationNumber())){
-                
+            if (!currentCustomer.getId().equals(customer.getId()) && currentCustomer.getIdentificationNumber().equals(customer.getIdentificationNumber())){ 
                 throw new ControlException("Customer with the same identification number already exists");
             }
         }  
+        
         Optional<Customer> optionalCustomer = customerRepository.findById(customer.getId());
+        
         if (optionalCustomer.isPresent()) {
             // New customer data
             Customer currentCustomer = optionalCustomer.get();
@@ -106,7 +114,6 @@ public class CustomerService {
     //LIST OF ADDRESS BY ID CUSTOMER
     public List<Address> getAddress(Long id){
         List<Customer> customers = customerRepository.findAll();
-        List<Address> addresses;
         // Search identification number
         for (Customer currentCustomer : customers) {
             if (currentCustomer.getId().equals(id)) {

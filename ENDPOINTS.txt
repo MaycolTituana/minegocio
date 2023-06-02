@@ -3,7 +3,7 @@ ENDPOINTS
 //ADD ADDRESS BY ID
 
 METHOD: POST
-URI:localhost:8080/api/addresses
+URI:localhost:8080/api/addAddress
 {
 "id":"3912",
 "addresses":[{
@@ -57,30 +57,34 @@ URI:localhost:8080/api/editCustomer
 
 //SEARCH BY NAME
 METHOD GET
+URI: localhost:8080/api/searchCustomer
+{
+    "names":"Maycol"
+}
 
-
+{
+    "names":"Ma"
+}
 
 // ADD CUSTOMER 
 METHOD: POST
 URI: localhost:8080/api/addCustomer
 {
   "identificationType": "Cédula",
-  "identificationNumber": "135567890",
-  "names": "Maria Lopez",
-  "email": "juan@example.com",
+  "identificationNumber": "13796780",
+  "names": "Tania Lopez",
+  "email": "juan@gmail.com",
   "cellphone": "123456789",
   "addresses": [
     {
       "province": "Calle Principal",
       "city": "Quito",
-      "address": "Ecuador",
-      "mainAddress":"true"
+      "address": "Ecuador"
     },
     {
       "province": "Avenida Central",
       "city": "Guayaquil",
-      "address": "Ecuador",
-      "mainAddress":"false"
+      "address": "Ecuador"
     }
   ]
 }

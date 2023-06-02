@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class CustomerController {
+    
     @Autowired
     CustomerService customerService;
     
@@ -38,13 +39,13 @@ public class CustomerController {
         return  customerService.getAllCustomers();
     }
     
-    @GetMapping("search")
+    @GetMapping("searchCustomer")
     public List<CustomerPresenters> getCustomerByNames(@RequestBody Customer name){
         return customerService.getCustomerByNames(name);
     }
     
-    @PostMapping("newCustomer")
-    public Customer createCustomer(@RequestBody Customer customer){
+    @PostMapping("addCustomer")
+    public Customer addCustomer(@RequestBody Customer customer){
         return customerService.addCustomer(customer);
     }
     
@@ -63,10 +64,9 @@ public class CustomerController {
         return customerService.getAddress(customer.getId());
     }
     
-    @PostMapping("addresses")
-    public ControlException addAddres( @RequestBody Customer customer) {
+    @PostMapping("addAddress")
+    public ControlException addAddress( @RequestBody Customer customer) {
         return customerService.addAddres(customer);
     }
-    
-    
+     
 }
