@@ -1,0 +1,87 @@
+ENDPOINTS
+
+//ADD ADDRESS BY ID
+
+METHOD: POST
+URI:localhost:8080/api/addresses
+{
+"id":"3912",
+"addresses":[{
+        "province": "Pichincha",
+        "city": "Quito",
+        "address": "Caluma"
+    }]
+}
+{
+"id":"1",
+"addresses":[{
+        "province": "Pichincha",
+        "city": "Quito",
+        "address": "Caluma"
+    }]
+}
+
+//LIST ADDREESS BY ID
+
+METHOD: GET
+URI:localhost:8080/api/getAddress
+{
+"id":"3"
+}
+{
+"id":"59"
+}
+
+//DELETE ADDREESS BY ID
+
+METHOD: DELETE
+URI: localhost:8080/api/deleteCustomer
+{
+"id":"3"
+}
+{
+"id":"59"
+}
+
+//EDIT CUSTOMER BY ID
+METHOD: PUT
+URI:localhost:8080/api/editCustomer
+{
+    "id":"5",
+    "identificationType":"RUC",
+    "identificationNumber":"175277324",
+    "names":"Naty",
+    "email":"mtituana243@gmail.com",
+    "cellphone":"0987850292"
+}
+
+//SEARCH BY NAME
+METHOD GET
+
+
+
+// ADD CUSTOMER 
+METHOD: POST
+URI: localhost:8080/api/addCustomer
+{
+  "identificationType": "Cédula",
+  "identificationNumber": "135567890",
+  "names": "Maria Lopez",
+  "email": "juan@example.com",
+  "cellphone": "123456789",
+  "addresses": [
+    {
+      "province": "Calle Principal",
+      "city": "Quito",
+      "address": "Ecuador",
+      "mainAddress":"true"
+    },
+    {
+      "province": "Avenida Central",
+      "city": "Guayaquil",
+      "address": "Ecuador",
+      "mainAddress":"false"
+    }
+  ]
+}
+
